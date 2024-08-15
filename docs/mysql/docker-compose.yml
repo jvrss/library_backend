@@ -1,0 +1,20 @@
+version: '3.8'
+services:
+  db:
+    image: mysql/mysql-server:latest
+    container_name: mysql
+    restart: always
+    environment: 
+      MYSQL_ROOT_PASSWORD: y41K1-O,qdm2
+    ports:
+      - '3306:3306'
+    volumes:
+      - mysql-volume:/var/lib/mysql
+    healthcheck:
+      test: "mysqladmin ping -h localhost"
+      interval: 1s
+      timeout: 1s
+      retries: 60
+volumes:
+  mysql-volume:
+    driver: local
