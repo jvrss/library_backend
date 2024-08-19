@@ -8,7 +8,8 @@ import lombok.NoArgsConstructor;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import java.util.Date;
+
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
@@ -31,5 +32,5 @@ public class Author {
     private String bio;
 
     @Temporal(TemporalType.DATE)
-    private Date birthday;
+    private LocalDate birthday;
 }
