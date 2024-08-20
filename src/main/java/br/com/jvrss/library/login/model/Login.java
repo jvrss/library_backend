@@ -7,6 +7,7 @@ import jakarta.persistence.Id;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,10 +24,12 @@ public class Login {
     private UUID id;
 
     @NotBlank(message = "Name is mandatory")
+    @Size(min = 1, max = 200)
     private String name;
 
     @Email(message = "Email should be valid")
     @NotBlank(message = "Email is mandatory")
+    @Size(min = 7, max = 200)
     private String email;
 
     @NotBlank(message = "Password is mandatory")
