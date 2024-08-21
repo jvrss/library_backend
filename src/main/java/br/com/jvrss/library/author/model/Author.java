@@ -28,7 +28,7 @@ public class Author {
     private String name;
 
     @Size(max = 1000)
-    @Column(length = 1000)
+    @Column(length = 2000)
     private String bio;
 
     @Temporal(TemporalType.DATE)
