@@ -11,4 +11,5 @@ public interface LoginService {
     List<Login> getAllLogins();
     Login updateLogin(UUID id, Login login);
     void deleteLogin(UUID id);
+    String authenticate(String username, String password);
 }

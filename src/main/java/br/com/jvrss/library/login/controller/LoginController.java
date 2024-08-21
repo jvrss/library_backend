@@ -1,9 +1,11 @@
 package br.com.jvrss.library.login.controller;
 
+import br.com.jvrss.library.login.model.AuthenticationRequest;
 import br.com.jvrss.library.login.model.Login;
 import br.com.jvrss.library.login.service.LoginService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +17,7 @@ import java.util.UUID;
 public class LoginController {
 
     @Autowired
+    @Lazy
     private LoginService loginService;
 
     @PostMapping
@@ -53,5 +56,11 @@ public class LoginController {
     public ResponseEntity<Void> deleteLogin(@PathVariable UUID id) {
         loginService.deleteLogin(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/authenticate")
+    public ResponseEntity<String> authenticate(@Valid @RequestBody AuthenticationRequest authenticationRequest) {
+        String token = loginService.authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
+        return ResponseEntity.ok(token);
     }
 }
