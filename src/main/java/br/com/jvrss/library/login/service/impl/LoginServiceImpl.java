@@ -1,5 +1,6 @@
 package br.com.jvrss.library.login.service.impl;
 
+import br.com.jvrss.library.exception.AuthenticationException;
 import br.com.jvrss.library.login.model.Login;
 import br.com.jvrss.library.login.repository.LoginRepository;
 import br.com.jvrss.library.login.service.LoginService;
@@ -19,8 +20,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import static br.com.jvrss.library.util.Messages.INVALID_EMAIL_OR_PASSWORD;
+
 @Service
 public class LoginServiceImpl implements LoginService, UserDetailsService {
+
 
     private final LoginRepository loginRepository;
     private final PasswordEncoder passwordEncoder;
@@ -72,10 +76,14 @@ public class LoginServiceImpl implements LoginService, UserDetailsService {
 
     @Override
     public String authenticate(String email, String password) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
+        try {
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
+        } catch (Exception e) {
+            throw new AuthenticationException(INVALID_EMAIL_OR_PASSWORD);
+        }
         final UserDetails userDetails = loadUserByEmail(email);
         if (!passwordEncoder.matches(password, userDetails.getPassword())) {
-            throw new UsernameNotFoundException("Invalid password for email: " + email);
+            throw new AuthenticationException(INVALID_EMAIL_OR_PASSWORD);
         }
         return jwtUtil.generateToken(userDetails.getUsername());
     }
