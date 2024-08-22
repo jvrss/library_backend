@@ -70,14 +70,22 @@ public class LoginServiceImpl implements LoginService, UserDetailsService {
         loginRepository.deleteById(id);
     }
 
-    public String authenticate(String username, String password) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-        final UserDetails userDetails = loadUserByUsername(username);
+    @Override
+    public String authenticate(String email, String password) {
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
+        final UserDetails userDetails = loadUserByEmail(email);
+        if (!passwordEncoder.matches(password, userDetails.getPassword())) {
+            throw new UsernameNotFoundException("Invalid password for email: " + email);
+        }
         return jwtUtil.generateToken(userDetails.getUsername());
     }
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return loadUserByEmail(username);
+    }
+
+    public UserDetails loadUserByEmail(String email) throws UsernameNotFoundException {
         Login login = loginRepository.findByEmail(email);
         if (login == null) {
             throw new UsernameNotFoundException("User not found with email: " + email);
