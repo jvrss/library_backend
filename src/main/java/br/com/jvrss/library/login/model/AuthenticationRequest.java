@@ -12,7 +12,7 @@ public class AuthenticationRequest {
     @Email(message = "Email should be valid")
     @NotBlank(message = "Email is mandatory")
     @Size(min = 7, max = 200)
-    private String username;
+    private String email;
 
     @NotBlank(message = "Password is mandatory")
     @Pattern(

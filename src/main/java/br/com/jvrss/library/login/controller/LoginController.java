@@ -60,7 +60,7 @@ public class LoginController {
 
     @PostMapping("/authenticate")
     public ResponseEntity<String> authenticate(@Valid @RequestBody AuthenticationRequest authenticationRequest) {
-        String token = loginService.authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
+        String token = loginService.authenticate(authenticationRequest.getEmail(), authenticationRequest.getPassword());
         return ResponseEntity.ok(token);
     }
 }
