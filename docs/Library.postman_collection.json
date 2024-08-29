@@ -52,10 +52,16 @@
 					"name": "Insert",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "X-CSRF-TOKEN",
+								"value": "{{X-CSRF-TOKEN}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"name\": \"Jane Smith\",\n  \"email\": \"jane.smith@example.com\",\n  \"password\": \"Str0ngP@ssw0rd!\"\n}",
+							"raw": "{\n  \"name\": \"Pedro Silva\",\n  \"email\": \"pedro.bmo@hotmail.com\",\n  \"password\": \"715WYhbDpw}_\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -80,7 +86,13 @@
 					"name": "Update",
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "X-CSRF-TOKEN",
+								"value": "{{X-CSRF-TOKEN}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"id\": \"39297782-901a-4467-90b0-63a5b30b362b\",\n    \"name\": \"Jane Smith 2\",\n    \"email\": \"jane.smith@example.com\",\n    \"password\": \"Str0ngP@ssw0rd!\"\n}",
@@ -109,9 +121,15 @@
 					"name": "Delete",
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "X-CSRF-TOKEN",
+								"value": "{{X-CSRF-TOKEN}}",
+								"type": "text"
+							}
+						],
 						"url": {
-							"raw": "localhost:8080/api/logins/39297782-901a-4467-90b0-63a5b30b362b",
+							"raw": "localhost:8080/api/logins/b8580d5e-a9b8-48d9-848a-d6b38abc8a3f",
 							"host": [
 								"localhost"
 							],
@@ -119,7 +137,7 @@
 							"path": [
 								"api",
 								"logins",
-								"39297782-901a-4467-90b0-63a5b30b362b"
+								"b8580d5e-a9b8-48d9-848a-d6b38abc8a3f"
 							]
 						}
 					},
@@ -173,7 +191,13 @@
 					"name": "Insert",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "X-CSRF-TOKEN",
+								"value": "{{X-CSRF-TOKEN}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n  \"name\": \"Admirável Mundo Novo\",\n  \"description\": \"Em uma sociedade organizada segundo princípios estritamente científicos, Bernard Marx, um psicólogo, sente-se inadequado quando se compara aos outros seres de sua casta. Ao descobrir uma “reserva histórica” que preserva costumes de uma sociedade anterior – muito semelhante à do leitor – Bernard vai perceber as diferenças entre esta civilização e a sua – e a partir de um sentimento de inconformismo ele desafiará o mundo. A história de Bernard se passa em um ambiente em que a literatura, a música e o cinema só têm a função de solidificar a alienação; um universo que louva o avanço da técnica, a produção em série, a uniformidade contra a diversidade.\",\n  \"isbn\": \"9788525056009\",\n  \"pages\": 312,\n  \"publication\": \"2014-01-01\",\n  \"language\": {},\n  \"author\": {},\n  \"publisher\": {}\n}",
@@ -201,7 +225,13 @@
 					"name": "Update",
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "X-CSRF-TOKEN",
+								"value": "{{X-CSRF-TOKEN}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"id\": \"39297782-901a-4467-90b0-63a5b30b362b\",\n    \"name\": \"Jane Smith 2\",\n    \"email\": \"jane.smith@example.com\",\n    \"password\": \"Str0ngP@ssw0rd!\"\n}",
@@ -230,7 +260,13 @@
 					"name": "Delete",
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "X-CSRF-TOKEN",
+								"value": "{{X-CSRF-TOKEN}}",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "localhost:8080/api/books/39297782-901a-4467-90b0-63a5b30b362b",
 							"host": [
@@ -294,7 +330,13 @@
 					"name": "Insert",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "X-CSRF-TOKEN",
+								"value": "{{X-CSRF-TOKEN}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n  \"name\": \"Jane Smith\",\n  \"bio\": \"It's a great person\",\n  \"birthday\": \"1990-05-20\"\n}",
@@ -322,7 +364,13 @@
 					"name": "Update",
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "X-CSRF-TOKEN",
+								"value": "{{X-CSRF-TOKEN}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"id\": \"7617d815-e7a9-44a5-a4bf-9b69647ca39d\",\n    \"name\": \"Jane Smith\",\n    \"bio\": \"It's a great person2\",\n    \"birthday\": \"1990-05-19\"\n}",
@@ -351,7 +399,13 @@
 					"name": "Delete",
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "X-CSRF-TOKEN",
+								"value": "{{X-CSRF-TOKEN}}",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "localhost:8080/api/authors/39297782-901a-4467-90b0-63a5b30b362b",
 							"host": [
@@ -415,7 +469,13 @@
 					"name": "Insert",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "X-CSRF-TOKEN",
+								"value": "{{X-CSRF-TOKEN}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"cpf\" : \"12312312312\",\n    \"login\" : {\n        \"id\": \"6d4dd48a-8bd7-401a-9f1d-e3233f385420\",\n        \"name\": \"Jane Smith\",\n        \"email\": \"jane.smith@example.com\",\n        \"password\": \"Str0ngP@ssw0rd!\"\n    }\n}",
@@ -443,7 +503,13 @@
 					"name": "Update",
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "X-CSRF-TOKEN",
+								"value": "{{X-CSRF-TOKEN}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"cpf\" : \"12312312312\",\n    \"login\" : {\n        \"id\": \"6d4dd48a-8bd7-401a-9f1d-e3233f385420\",\n        \"name\": \"Jane Smith\",\n        \"email\": \"jane.smith@example.com\",\n        \"password\": \"Str0ngP@ssw0rd!\"\n    }\n}",
@@ -472,7 +538,13 @@
 					"name": "Delete",
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "X-CSRF-TOKEN",
+								"value": "{{X-CSRF-TOKEN}}",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "localhost:8080/api/logins/12312312312",
 							"host": [
@@ -536,7 +608,13 @@
 					"name": "Insert",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "X-CSRF-TOKEN",
+								"value": "{{X-CSRF-TOKEN}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"cpf\" : \"12312312312\",\n    \"login\" : {\n        \"id\": \"6d4dd48a-8bd7-401a-9f1d-e3233f385420\",\n        \"name\": \"Jane Smith\",\n        \"email\": \"jane.smith@example.com\",\n        \"password\": \"Str0ngP@ssw0rd!\"\n    }\n}",
@@ -564,7 +642,13 @@
 					"name": "Update",
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "X-CSRF-TOKEN",
+								"value": "{{X-CSRF-TOKEN}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"cpf\" : \"12312312312\",\n    \"login\" : {\n        \"id\": \"6d4dd48a-8bd7-401a-9f1d-e3233f385420\",\n        \"name\": \"Jane Smith2\",\n        \"email\": \"jane.smith@example.com\",\n        \"password\": \"Str0ngP@ssw0rd!\"\n    }\n}",
@@ -593,7 +677,13 @@
 					"name": "Delete",
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "X-CSRF-TOKEN",
+								"value": "{{X-CSRF-TOKEN}}",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "localhost:8080/api/employees/12312312312",
 							"host": [
@@ -657,7 +747,13 @@
 					"name": "Insert",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "X-CSRF-TOKEN",
+								"value": "{{X-CSRF-TOKEN}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n  \"name\": \"Portugues\"\n}",
@@ -685,7 +781,13 @@
 					"name": "Update",
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "X-CSRF-TOKEN",
+								"value": "{{X-CSRF-TOKEN}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"name\": \"Português\"\n}",
@@ -714,7 +816,13 @@
 					"name": "Delete",
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "X-CSRF-TOKEN",
+								"value": "{{X-CSRF-TOKEN}}",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "localhost:8080/api/languages/af077440-be16-415d-9774-72d440224d63",
 							"host": [
@@ -778,7 +886,13 @@
 					"name": "Insert",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "X-CSRF-TOKEN",
+								"value": "{{X-CSRF-TOKEN}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n  \"name\": \"Alpha\"\n}",
@@ -806,7 +920,13 @@
 					"name": "Update",
 					"request": {
 						"method": "PUT",
-						"header": [],
+						"header": [
+							{
+								"key": "X-CSRF-TOKEN",
+								"value": "{{X-CSRF-TOKEN}}",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"name\": \"Alpha II\"\n}",
@@ -835,7 +955,13 @@
 					"name": "Delete",
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "X-CSRF-TOKEN",
+								"value": "{{X-CSRF-TOKEN}}",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "localhost:8080/api/languages/7f7921c1-cc33-48d8-a354-77d924210ee0",
 							"host": [
@@ -899,6 +1025,24 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Csrf",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/csrf-token",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"csrf-token"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"auth": {
@@ -921,7 +1065,7 @@
 					"// Pre-request Script in Postman\r",
 					"\r",
 					"// Define the authentication request details\r",
-					"const authRequest = {\r",
+					"const jwtRequest = {\r",
 					"    url: 'http://localhost:8080/api/logins/authenticate',\r",
 					"    method: 'POST',\r",
 					"    header: {\r",
@@ -937,7 +1081,7 @@
 					"};\r",
 					"\r",
 					"// Send the authentication request\r",
-					"pm.sendRequest(authRequest, function (err, res) {\r",
+					"pm.sendRequest(jwtRequest, function (err, res) {\r",
 					"    if (err) {\r",
 					"        console.error(err);\r",
 					"    } else {\r",
@@ -946,6 +1090,26 @@
 					"\r",
 					"        // Save the token to a Postman environment variable\r",
 					"        pm.environment.set(\"jwt_token\", token);\r",
+					"    }\r",
+					"});\r",
+					"\r",
+					"pm.sendRequest({\r",
+					"    url: 'http://localhost:8080/csrf-token',\r",
+					"    method: 'GET',\r",
+					"    header: {\r",
+					"        'Accept': 'application/json'\r",
+					"    }\r",
+					"}, function (err, res) {\r",
+					"    if (err) {\r",
+					"        console.log('Error:', err);\r",
+					"    } else {\r",
+					"        // Parse the response to get the token\r",
+					"        console.log(res.json())\r",
+					"\r",
+					"        const token = res.json().token; // Assuming the token is the entire response body\r",
+					"\r",
+					"        // Save the token to a Postman environment variable\r",
+					"        pm.environment.set(\"X-CSRF-TOKEN\", token);\r",
 					"    }\r",
 					"});"
 				]
@@ -966,6 +1130,11 @@
 		{
 			"key": "jwt_token",
 			"value": ""
+		},
+		{
+			"key": "X-CSRF-TOKEN",
+			"value": "",
+			"type": "string"
 		}
 	]
 }
