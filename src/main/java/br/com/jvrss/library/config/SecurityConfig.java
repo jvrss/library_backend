@@ -42,15 +42,16 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf
-                .ignoringRequestMatchers("/api/logins/authenticate", "/hello") // Customize as needed
+                .ignoringRequestMatchers("/api/**",
+                        "/hello") // Customize as needed
         )
         .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/api/logins/authenticate", "/hello").permitAll()
                 .anyRequest().authenticated()
-        )
-        .sessionManagement(session -> session
+            )
+            .sessionManagement(session -> session
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-        );
+            );
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }

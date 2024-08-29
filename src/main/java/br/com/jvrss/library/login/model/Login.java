@@ -33,9 +33,5 @@ public class Login {
     private String email;
 
     @NotBlank(message = "Password is mandatory")
-    @Pattern(
-        regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$",
-        message = "Password must be at least 8 characters long and include a digit, a lower case letter, an upper case letter, a special character, and no whitespace"
-    )
     private String password;
 }

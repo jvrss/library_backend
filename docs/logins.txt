@@ -1,0 +1,10 @@
+{
+  "name": "João Silva",
+  "email": "jv_rss@hotmail.com",
+  "password": "w:ZPPhX275v+"
+},
+{
+  "name": "Pedro Silva",
+  "email": "pedro.bmo@hotmail.com",
+  "password": "715WYhbDpw}_"
+}
