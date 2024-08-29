@@ -9,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+
 import java.util.UUID;
 
 @Entity
@@ -22,6 +23,9 @@ public class Publisher {
     private UUID id;
 
     @NotNull
-    @Size(min = 1, max = 200)
+    @Size(max = 100)
     private String name;
+
+    @Size(max = 500)
+    private String address;
 }

@@ -128,6 +128,127 @@
 			]
 		},
 		{
+			"name": "Book",
+			"item": [
+				{
+					"name": "GetAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/books",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"books"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetOne",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/books/550e8400-e29b-41d4-a716-446655440000",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"books",
+								"550e8400-e29b-41d4-a716-446655440000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Insert",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Admirável Mundo Novo\",\n  \"description\": \"Em uma sociedade organizada segundo princípios estritamente científicos, Bernard Marx, um psicólogo, sente-se inadequado quando se compara aos outros seres de sua casta. Ao descobrir uma “reserva histórica” que preserva costumes de uma sociedade anterior – muito semelhante à do leitor – Bernard vai perceber as diferenças entre esta civilização e a sua – e a partir de um sentimento de inconformismo ele desafiará o mundo. A história de Bernard se passa em um ambiente em que a literatura, a música e o cinema só têm a função de solidificar a alienação; um universo que louva o avanço da técnica, a produção em série, a uniformidade contra a diversidade.\",\n  \"isbn\": \"9788525056009\",\n  \"pages\": 312,\n  \"publication\": \"2014-01-01\",\n  \"language\": {},\n  \"author\": {},\n  \"publisher\": {}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/books",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"books"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"39297782-901a-4467-90b0-63a5b30b362b\",\n    \"name\": \"Jane Smith 2\",\n    \"email\": \"jane.smith@example.com\",\n    \"password\": \"Str0ngP@ssw0rd!\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/books/39297782-901a-4467-90b0-63a5b30b362b",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"books",
+								"39297782-901a-4467-90b0-63a5b30b362b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/books/39297782-901a-4467-90b0-63a5b30b362b",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"books",
+								"39297782-901a-4467-90b0-63a5b30b362b"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Author",
 			"item": [
 				{
@@ -821,10 +942,10 @@
 					"        console.error(err);\r",
 					"    } else {\r",
 					"        // Parse the response to get the token\r",
-					"        const token = res.json().token;\r",
+					"        const token = res.text(); // Assuming the token is the entire response body\r",
 					"\r",
 					"        // Save the token to a Postman environment variable\r",
-					"        pm.environment.set('jwt_token', token);\r",
+					"        pm.environment.set(\"jwt_token\", token);\r",
 					"    }\r",
 					"});"
 				]
@@ -839,6 +960,12 @@
 					""
 				]
 			}
+		}
+	],
+	"variable": [
+		{
+			"key": "jwt_token",
+			"value": ""
 		}
 	]
 }

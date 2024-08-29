@@ -1,5 +1,5 @@
 // LanguageServiceImpl.java
-package br.com.jvrss.library.language.service;
+package br.com.jvrss.library.language.service.impl;
 
 import br.com.jvrss.library.language.model.Language;
 import br.com.jvrss.library.language.repository.LanguageRepository;
