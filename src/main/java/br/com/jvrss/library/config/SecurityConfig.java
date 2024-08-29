@@ -42,11 +42,14 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf
-                .ignoringRequestMatchers("/api/**",
-                        "/hello") // Customize as needed
+                .ignoringRequestMatchers("/api/logins/authenticate",
+                        "/hello",
+                        "/csrf-token") // Customize as needed
         )
         .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/logins/authenticate", "/hello").permitAll()
+                .requestMatchers("/api/logins/authenticate",
+                        "/hello",
+                        "/csrf-token").permitAll()
                 .anyRequest().authenticated()
             )
             .sessionManagement(session -> session
