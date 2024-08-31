@@ -3,12 +3,15 @@ package br.com.jvrss.library.employee.controller;
 
 import br.com.jvrss.library.employee.model.Employee;
 import br.com.jvrss.library.employee.service.EmployeeService;
+import br.com.jvrss.library.login.model.Login;
+import br.com.jvrss.library.login.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/api/employees")
@@ -17,8 +20,19 @@ public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
 
+    @Autowired
+    private LoginService loginService;
+
     @PostMapping
     public ResponseEntity<Employee> createEmployee(@RequestBody Employee employee) {
+
+        Login loginResponse = loginService.getLoginById(employee.getLogin().getId());
+        if (loginResponse == null) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        employee.setLogin(loginResponse);
+
         Employee createdEmployee = employeeService.createEmployee(employee);
         return ResponseEntity.ok(createdEmployee);
     }

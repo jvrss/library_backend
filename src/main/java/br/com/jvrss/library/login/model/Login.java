@@ -1,5 +1,6 @@
 package br.com.jvrss.library.login.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -32,6 +33,6 @@ public class Login {
     @Size(min = 7, max = 200)
     private String email;
 
-    @NotBlank(message = "Password is mandatory")
+    @JsonIgnore
     private String password;
 }
