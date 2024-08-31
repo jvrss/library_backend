@@ -1,3 +1,4 @@
+// src/main/java/br/com/jvrss/library/loan/model/Loan.java
 package br.com.jvrss.library.loan.model;
 
 import br.com.jvrss.library.book.model.Book;
@@ -9,6 +10,9 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+/**
+ * Entity representing a loan.
+ */
 @Data
 @Entity
 public class Loan {

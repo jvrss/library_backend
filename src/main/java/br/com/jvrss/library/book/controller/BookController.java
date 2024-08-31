@@ -14,6 +14,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+/**
+ * REST controller for managing books.
+ */
 @RestController
 @RequestMapping("/api/books")
 public class BookController {
@@ -25,12 +28,24 @@ public class BookController {
         this.bookService = bookService;
     }
 
+    /**
+     * Creates a new book.
+     *
+     * @param book the book to create
+     * @return the created book
+     */
     @PostMapping
     public ResponseEntity<Book> createBook(@Valid @RequestBody Book book) {
         Book createdBook = bookService.createBook(book);
         return ResponseEntity.ok(createdBook);
     }
 
+    /**
+     * Retrieves a book by its ID.
+     *
+     * @param id the ID of the book
+     * @return the book, or 404 if not found
+     */
     @GetMapping("/{id}")
     public ResponseEntity<Book> getBookById(@PathVariable UUID id) {
         Book book = bookService.getBookById(id);
@@ -41,12 +56,24 @@ public class BookController {
         }
     }
 
+    /**
+     * Retrieves all books.
+     *
+     * @return a list of all books
+     */
     @GetMapping
     public ResponseEntity<List<Book>> getAllBooks() {
         List<Book> books = bookService.getAllBooks();
         return ResponseEntity.ok(books);
     }
 
+    /**
+     * Updates an existing book.
+     *
+     * @param id the ID of the book to update
+     * @param book the updated book data
+     * @return the updated book, or 404 if not found
+     */
     @PutMapping("/{id}")
     public ResponseEntity<Book> updateBook(@PathVariable UUID id, @Valid @RequestBody Book book) {
         Book updatedBook = bookService.updateBook(id, book);
@@ -57,12 +84,24 @@ public class BookController {
         }
     }
 
+    /**
+     * Deletes a book by its ID.
+     *
+     * @param id the ID of the book to delete
+     * @return 204 No Content
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteBook(@PathVariable UUID id) {
         bookService.deleteBook(id);
         return ResponseEntity.noContent().build();
     }
 
+    /**
+     * Handles validation exceptions.
+     *
+     * @param ex the exception
+     * @return a map of field errors
+     */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> handleValidationExceptions(MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();

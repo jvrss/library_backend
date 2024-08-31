@@ -10,6 +10,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+/**
+ * Implementation of the BookService interface.
+ */
 @Service
 public class BookServiceImpl implements BookService {
 
@@ -20,22 +23,46 @@ public class BookServiceImpl implements BookService {
         this.bookRepository = bookRepository;
     }
 
+    /**
+     * Creates a new book.
+     *
+     * @param book the book to create
+     * @return the created book
+     */
     @Override
     public Book createBook(Book book) {
         return bookRepository.save(book);
     }
 
+    /**
+     * Retrieves a book by its ID.
+     *
+     * @param id the ID of the book
+     * @return the book, or null if not found
+     */
     @Override
     public Book getBookById(UUID id) {
         Optional<Book> book = bookRepository.findById(id);
         return book.orElse(null);
     }
 
+    /**
+     * Retrieves all books.
+     *
+     * @return a list of all books
+     */
     @Override
     public List<Book> getAllBooks() {
         return bookRepository.findAll();
     }
 
+    /**
+     * Updates an existing book.
+     *
+     * @param id the ID of the book to update
+     * @param book the updated book data
+     * @return the updated book, or null if not found
+     */
     @Override
     public Book updateBook(UUID id, Book book) {
         if (bookRepository.existsById(id)) {
@@ -45,6 +72,11 @@ public class BookServiceImpl implements BookService {
         return null;
     }
 
+    /**
+     * Deletes a book by its ID.
+     *
+     * @param id the ID of the book to delete
+     */
     @Override
     public void deleteBook(UUID id) {
         bookRepository.deleteById(id);
