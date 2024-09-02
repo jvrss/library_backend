@@ -1,3 +1,4 @@
+// src/main/java/br/com/jvrss/library/util/JwtUtil.java
 package br.com.jvrss.library.util;
 
 import io.jsonwebtoken.Claims;
@@ -29,7 +30,12 @@ public class JwtUtil {
      * @return the signing key
      */
     private SecretKey getSigningKey() {
-        return Keys.hmacShaKeyFor(secret.getBytes());
+        // Ensure the key is at least 256 bits
+        byte[] keyBytes = secret.getBytes();
+        if (keyBytes.length < 32) {
+            throw new IllegalArgumentException("The key must be at least 256 bits (32 bytes) long.");
+        }
+        return Keys.hmacShaKeyFor(keyBytes);
     }
 
     /**
