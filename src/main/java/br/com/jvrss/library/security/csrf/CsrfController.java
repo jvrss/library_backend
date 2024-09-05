@@ -5,21 +5,14 @@ import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * REST controller for handling CSRF token requests.
- */
+import jakarta.servlet.http.HttpServletRequest;
+
 @RestController
 public class CsrfController {
 
-    /**
-     * Retrieves the CSRF token.
-     *
-     * @param csrfToken the CSRF token
-     * @return the CSRF token wrapped in a ResponseEntity
-     */
     @GetMapping("/csrf-token")
-    public ResponseEntity<CsrfToken> getCsrfToken(CsrfToken csrfToken) {
+    public ResponseEntity<CsrfToken> getCsrfToken(HttpServletRequest request) {
+        CsrfToken csrfToken = (CsrfToken) request.getAttribute(CsrfToken.class.getName());
         return ResponseEntity.ok(csrfToken);
     }
-
 }

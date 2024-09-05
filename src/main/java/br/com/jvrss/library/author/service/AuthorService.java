@@ -2,11 +2,13 @@
 package br.com.jvrss.library.author.service;
 
 import br.com.jvrss.library.author.model.Author;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+@Service
 public interface AuthorService {
     Author createAuthor(Author author);
     Optional<Author> getAuthorById(UUID id);
