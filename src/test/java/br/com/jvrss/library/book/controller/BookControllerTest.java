@@ -53,14 +53,13 @@ public class BookControllerTest {
     private String jwtToken;
     private Book book;
     private UUID bookId;
-    private Author author;
 
     @BeforeEach
     public void setUp() {
         jwtToken = jwtUtil.generateToken("testUser");
         mockMvc = MockMvcBuilders.webAppContextSetup(context).apply(springSecurity()).build();
         bookId = UUID.randomUUID();
-        author = new Author();
+        Author author = new Author();
         author.setId(UUID.randomUUID());
         author.setName("Sample Author");
         book = new Book();
@@ -105,7 +104,7 @@ public class BookControllerTest {
                 .header("Authorization", "Bearer " + jwtToken)
                 .with(csrf())
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"name\": \"Updated Book\", \"author\": {\"id\": \"" + author.getId() + "\", \"name\": \"Updated Author\"}}"))
+                .content(objectMapper.writeValueAsString(book)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value("Updated Book"))
                 .andExpect(jsonPath("$.author.name").value("Updated Author"));

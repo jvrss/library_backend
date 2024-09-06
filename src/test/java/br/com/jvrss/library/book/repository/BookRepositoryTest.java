@@ -44,10 +44,11 @@ public class BookRepositoryTest {
         publisherRepository.save(publisher); // Save the publisher
 
         book = new Book();
-        book.setId(UUID.randomUUID());
         book.setName("Sample Book");
         book.setAuthor(author);
         book.setPublisher(publisher);
+
+        book = bookRepository.save(book);
     }
 
     @Test
