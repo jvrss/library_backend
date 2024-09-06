@@ -41,9 +41,8 @@ public class BookServiceImpl implements BookService {
      * @return the book, or null if not found
      */
     @Override
-    public Book getBookById(UUID id) {
-        Optional<Book> book = bookRepository.findById(id);
-        return book.orElse(null);
+    public Optional<Book> getBookById(UUID id) {
+        return bookRepository.findById(id);
     }
 
     /**

@@ -49,19 +49,21 @@ public class AuthorControllerTest {
 
     private String jwtToken;
 
+    private Author author;
+
     @BeforeEach
     void setUp() {
         jwtToken = jwtUtil.generateToken("testUser");
         mockMvc = MockMvcBuilders.webAppContextSetup(context).apply(springSecurity()).build();
+
+        author = new Author();
+        author.setId(UUID.randomUUID());
+        author.setName("John Doe");
     }
 
     @Test
     @WithMockUser
     void testCreateAuthor() throws Exception {
-        Author author = new Author();
-        author.setId(UUID.randomUUID());
-        author.setName("John Doe");
-
         when(authorService.createAuthor(any(Author.class))).thenReturn(author);
 
         mockMvc.perform(post("/api/authors")
@@ -76,14 +78,9 @@ public class AuthorControllerTest {
     @Test
     @WithMockUser
     void testGetAuthorById() throws Exception {
-        UUID id = UUID.randomUUID();
-        Author author = new Author();
-        author.setId(id);
-        author.setName("John Doe");
+        when(authorService.getAuthorById(author.getId())).thenReturn(Optional.of(author));
 
-        when(authorService.getAuthorById(id)).thenReturn(Optional.of(author));
-
-        mockMvc.perform(get("/api/authors/{id}", id)
+        mockMvc.perform(get("/api/authors/{id}", author.getId())
                         .header("Authorization", "Bearer " + jwtToken))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value("John Doe"));
@@ -92,14 +89,9 @@ public class AuthorControllerTest {
     @Test
     @WithMockUser
     void testUpdateAuthor() throws Exception {
-        UUID id = UUID.randomUUID();
-        Author author = new Author();
-        author.setId(id);
-        author.setName("John Doe");
-
         when(authorService.updateAuthor(any(UUID.class), any(Author.class))).thenReturn(author);
 
-        mockMvc.perform(put("/api/authors/{id}", id)
+        mockMvc.perform(put("/api/authors/{id}", author.getId())
                         .header("Authorization", "Bearer " + jwtToken)
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
@@ -122,10 +114,6 @@ public class AuthorControllerTest {
     @Test
     @WithMockUser
     void testGetAllAuthors() throws Exception {
-        Author author = new Author();
-        author.setId(UUID.randomUUID());
-        author.setName("John Doe");
-
         when(authorService.getAllAuthors()).thenReturn(Collections.singletonList(author));
 
         mockMvc.perform(get("/api/authors")
