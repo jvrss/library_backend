@@ -4,13 +4,12 @@ import br.com.jvrss.library.author.model.Author;
 import br.com.jvrss.library.book.model.Book;
 import br.com.jvrss.library.book.service.BookService;
 import br.com.jvrss.library.filter.JwtRequestFilter;
+import br.com.jvrss.library.language.model.Language;
+import br.com.jvrss.library.publisher.model.Publisher;
 import br.com.jvrss.library.util.JwtUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -21,6 +20,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -58,19 +58,36 @@ public class BookControllerTest {
     public void setUp() {
         jwtToken = jwtUtil.generateToken("testUser");
         mockMvc = MockMvcBuilders.webAppContextSetup(context).apply(springSecurity()).build();
+
         bookId = UUID.randomUUID();
         Author author = new Author();
         author.setId(UUID.randomUUID());
         author.setName("Sample Author");
+
+        Language language = new Language();
+        language.setId(UUID.randomUUID());
+        language.setName("English");
+
+        Publisher publisher = new Publisher();
+        publisher.setId(UUID.randomUUID());
+        publisher.setName("Sample Publisher");
+
         book = new Book();
         book.setId(bookId);
         book.setName("Sample Book");
+        book.setDescription("Sample Description");
+        book.setIsbn("1234567890123");
+        book.setPages(100);
+        book.setPublication(LocalDate.now());
+        book.setLanguage(language);
         book.setAuthor(author);
+        book.setPublisher(publisher);
     }
 
     @Test
+    @WithMockUser(username = "testUser")
     public void testGetBookById() throws Exception {
-        when(bookService.getBookById(bookId)).thenReturn(Optional.of(book));
+        when(bookService.getBookById(bookId)).thenReturn(Optional.ofNullable(book));
 
         mockMvc.perform(get("/api/books/{id}", bookId)
                 .header("Authorization", "Bearer " + jwtToken)
@@ -99,6 +116,9 @@ public class BookControllerTest {
     @WithMockUser
     public void testUpdateBook() throws Exception {
         when(bookService.updateBook(eq(bookId), any(Book.class))).thenReturn(book);
+
+        book.setName("Updated Book");
+        book.getAuthor().setName("Updated Author");
 
         mockMvc.perform(put("/api/books/{id}", bookId)
                 .header("Authorization", "Bearer " + jwtToken)
