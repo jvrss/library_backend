@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * REST controller for handling user-related requests.
@@ -40,12 +41,8 @@ public class UserController {
      */
     @GetMapping("/{cpf}")
     public ResponseEntity<User> getUserByCpf(@PathVariable String cpf) {
-        User user = userService.getUserByCpf(cpf);
-        if (user != null) {
-            return new ResponseEntity<>(user, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        Optional<User> user = userService.getUserByCpf(cpf);
+        return user.map(value -> new ResponseEntity<>(value, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     /**

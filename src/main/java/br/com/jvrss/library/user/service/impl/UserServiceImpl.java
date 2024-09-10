@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Implementation of the UserService interface for handling user-related operations.
@@ -35,8 +36,8 @@ public class UserServiceImpl implements UserService {
      * @return the user if found, or null if not found
      */
     @Override
-    public User getUserByCpf(String cpf) {
-        return userRepository.findById(cpf).orElse(null);
+    public Optional<User> getUserByCpf(String cpf) {
+        return Optional.ofNullable(userRepository.findById(cpf).orElse(null));
     }
 
     /**
