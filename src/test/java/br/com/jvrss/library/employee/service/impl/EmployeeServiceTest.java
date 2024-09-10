@@ -17,6 +17,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -51,12 +52,21 @@ public class EmployeeServiceTest {
 
     @Test
     void testCreateEmployee() {
-        when(loginService.getLoginById(any(UUID.class))).thenReturn(login);
+        when(loginService.getLoginById(any(UUID.class))).thenReturn(Optional.ofNullable(login));
         when(employeeRepository.save(any(Employee.class))).thenReturn(employee);
 
         Employee createdEmployee = employeeService.createEmployee(employee);
         assertThat(createdEmployee).isNotNull();
         assertThat(createdEmployee.getCpf()).isEqualTo(employee.getCpf());
+    }
+
+    @Test
+    void testCreateEmployeeThrowsExceptionWhenLoginNotFound() {
+        when(loginService.getLoginById(any(UUID.class))).thenReturn(Optional.empty());
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            employeeService.createEmployee(employee);
+        });
     }
 
     @Test

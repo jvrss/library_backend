@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -45,12 +46,8 @@ public class LoginController {
      */
     @GetMapping("/{id}")
     public ResponseEntity<LoginDto> getLoginById(@PathVariable UUID id) {
-        Login login = loginService.getLoginById(id);
-        if (login != null) {
-            return ResponseEntity.ok(convertToDto(login));
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        Optional<Login> login = loginService.getLoginById(id);
+        return login.map(value -> ResponseEntity.ok(convertToDto(value))).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     /**

@@ -32,11 +32,14 @@ public class EmployeeServiceImpl implements EmployeeService {
      */
     @Override
     public Employee createEmployee(Employee employee) {
-        Login login = loginService.getLoginById(employee.getLogin().getId());
-        employee.setLogin(login);
-        return employeeRepository.save(employee);
+        Optional<Login> loginOptional = loginService.getLoginById(employee.getLogin().getId());
+        if (loginOptional.isPresent()) {
+            employee.setLogin(loginOptional.get());
+            return employeeRepository.save(employee);
+        } else {
+            throw new IllegalArgumentException("Login not found for the given ID");
+        }
     }
-
     /**
      * Retrieves an employee by their CPF.
      *

@@ -33,12 +33,12 @@ public class EmployeeController {
     @PostMapping
     public ResponseEntity<Employee> createEmployee(@RequestBody Employee employee) {
 
-        Login loginResponse = loginService.getLoginById(employee.getLogin().getId());
-        if (loginResponse == null) {
+        Optional<Login> loginResponse = loginService.getLoginById(employee.getLogin().getId());
+        if (loginResponse.isEmpty()) {
             return ResponseEntity.badRequest().build();
         }
 
-        employee.setLogin(loginResponse);
+        employee.setLogin(loginResponse.get());
 
         Employee createdEmployee = employeeService.createEmployee(employee);
         return ResponseEntity.ok(createdEmployee);

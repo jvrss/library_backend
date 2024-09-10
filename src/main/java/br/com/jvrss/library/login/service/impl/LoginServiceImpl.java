@@ -69,9 +69,8 @@ public class LoginServiceImpl implements LoginService, UserDetailsService {
      * @return the login if found, or null if not found
      */
     @Override
-    public Login getLoginById(UUID id) {
-        Optional<Login> login = loginRepository.findById(id);
-        return login.orElse(null);
+    public Optional<Login> getLoginById(UUID id) {
+        return loginRepository.findById(id);
     }
 
     /**
