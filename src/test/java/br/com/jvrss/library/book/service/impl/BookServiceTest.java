@@ -34,7 +34,7 @@ public class BookServiceTest {
         bookId = UUID.randomUUID();
         book = new Book();
         book.setId(bookId);
-        book.setName("Sample Book");
+        book.setTitle("Sample Book");
         // Set other properties of the book as needed
     }
 
@@ -45,7 +45,7 @@ public class BookServiceTest {
         Optional<Book> foundBook = bookService.getBookById(bookId);
 
         assertTrue(foundBook.isPresent());
-        assertEquals("Sample Book", foundBook.get().getName());
+        assertEquals("Sample Book", foundBook.get().getTitle());
     }
 
     @Test
@@ -55,7 +55,7 @@ public class BookServiceTest {
         Book savedBook = bookService.createBook(book);
 
         assertNotNull(savedBook, "The saved book should not be null");
-        assertEquals("Sample Book", savedBook.getName());
+        assertEquals("Sample Book", savedBook.getTitle());
     }
 
     @Test
@@ -63,12 +63,12 @@ public class BookServiceTest {
         when(bookRepository.existsById(bookId)).thenReturn(true);
         when(bookRepository.save(book)).thenReturn(book);
 
-        book.setName("Updated Book");
+        book.setTitle("Updated Book");
 
         Book updatedBook = bookService.updateBook(bookId, book);
 
         assertNotNull(updatedBook);
-        assertEquals("Updated Book", updatedBook.getName());
+        assertEquals("Updated Book", updatedBook.getTitle());
     }
 
     @Test
@@ -87,6 +87,6 @@ public class BookServiceTest {
 
         assertNotNull(books);
         assertEquals(1, books.size());
-        assertEquals("Sample Book", books.get(0).getName());
+        assertEquals("Sample Book", books.get(0).getTitle());
     }
 }

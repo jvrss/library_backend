@@ -1,3 +1,4 @@
+// src/test/java/br/com/jvrss/library/author/controller/AuthorControllerTest.java
 package br.com.jvrss.library.author.controller;
 
 import br.com.jvrss.library.author.model.Author;
@@ -89,15 +90,41 @@ public class AuthorControllerTest {
     @Test
     @WithMockUser
     void testUpdateAuthor() throws Exception {
-        when(authorService.updateAuthor(any(UUID.class), any(Author.class))).thenReturn(author);
+        UUID authorId = UUID.randomUUID();
+        Author updatedAuthor = new Author();
+        updatedAuthor.setName("Updated Author Name");
 
-        mockMvc.perform(put("/api/authors/{id}", author.getId())
+        when(authorService.updateAuthor(any(UUID.class), any(Author.class))).thenReturn(Optional.of(updatedAuthor));
+
+        mockMvc.perform(put("/api/authors/{id}", authorId)
                         .header("Authorization", "Bearer " + jwtToken)
-                        .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(author)))
+                        .content(objectMapper.writeValueAsString(updatedAuthor))
+                        .with(csrf()))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.name").value("John Doe"));
+                .andExpect(jsonPath("$.name").value("Updated Author Name"));
+
+        // Test for author not found
+        when(authorService.updateAuthor(any(UUID.class), any(Author.class))).thenReturn(Optional.empty());
+
+        mockMvc.perform(put("/api/authors/{id}", authorId)
+                        .header("Authorization", "Bearer " + jwtToken)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(updatedAuthor))
+                        .with(csrf()))
+                .andExpect(status().isNotFound());
+
+        // Test for validation error
+        Author invalidAuthor = new Author();
+        invalidAuthor.setName(""); // Invalid name
+
+        mockMvc.perform(put("/api/authors/{id}", authorId)
+                        .header("Authorization", "Bearer " + jwtToken)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(invalidAuthor))
+                        .with(csrf()))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.name").value("must not be blank"));
     }
 
     @Test
@@ -132,6 +159,7 @@ public class AuthorControllerTest {
                         .header("Authorization", "Bearer " + jwtToken)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(author)))
-                .andExpect(status().isForbidden());
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.name").value("must not be blank"));
     }
 }

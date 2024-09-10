@@ -44,7 +44,7 @@ public class BookRepositoryTest {
         publisherRepository.save(publisher); // Save the publisher
 
         book = new Book();
-        book.setName("Sample Book");
+        book.setTitle("Sample Book");
         book.setAuthor(author);
         book.setPublisher(publisher);
 
@@ -63,7 +63,7 @@ public class BookRepositoryTest {
         bookRepository.save(book);
         Optional<Book> foundBook = bookRepository.findById(book.getId());
         assertThat(foundBook).isPresent();
-        assertThat(foundBook.get().getName()).isEqualTo("Sample Book");
+        assertThat(foundBook.get().getTitle()).isEqualTo("Sample Book");
     }
 
     @Test
