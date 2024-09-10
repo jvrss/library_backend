@@ -3,6 +3,8 @@ package br.com.jvrss.library.employee.service.impl;
 import br.com.jvrss.library.employee.model.Employee;
 import br.com.jvrss.library.employee.repository.EmployeeRepository;
 import br.com.jvrss.library.employee.service.EmployeeService;
+import br.com.jvrss.library.login.model.Login;
+import br.com.jvrss.library.login.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,12 +13,16 @@ import java.util.Optional;
 
 /**
  * Implementation of the EmployeeService interface.
+ * Provides methods for managing employees.
  */
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
     @Autowired
     private EmployeeRepository employeeRepository;
+
+    @Autowired
+    private LoginService loginService;
 
     /**
      * Creates a new employee.
@@ -26,6 +32,8 @@ public class EmployeeServiceImpl implements EmployeeService {
      */
     @Override
     public Employee createEmployee(Employee employee) {
+        Login login = loginService.getLoginById(employee.getLogin().getId());
+        employee.setLogin(login);
         return employeeRepository.save(employee);
     }
 
@@ -33,7 +41,7 @@ public class EmployeeServiceImpl implements EmployeeService {
      * Retrieves an employee by their CPF.
      *
      * @param cpf the CPF of the employee
-     * @return an Optional containing the employee if found, or an empty Optional if not found
+     * @return an Optional containing the found employee, or empty if not found
      */
     @Override
     public Optional<Employee> getEmployeeByCpf(String cpf) {
@@ -44,18 +52,12 @@ public class EmployeeServiceImpl implements EmployeeService {
      * Updates an existing employee.
      *
      * @param cpf the CPF of the employee to update
-     * @param employee the updated employee data
+     * @param employee the updated employee details
      * @return the updated employee
-     * @throws RuntimeException if the employee is not found
      */
     @Override
     public Employee updateEmployee(String cpf, Employee employee) {
-        if (employeeRepository.existsById(cpf)) {
-            employee.setCpf(cpf);
-            return employeeRepository.save(employee);
-        } else {
-            throw new RuntimeException("Employee not found");
-        }
+        return employeeRepository.save(employee);
     }
 
     /**

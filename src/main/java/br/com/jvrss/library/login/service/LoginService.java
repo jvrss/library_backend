@@ -1,6 +1,7 @@
 package br.com.jvrss.library.login.service;
 
 import br.com.jvrss.library.login.model.Login;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
