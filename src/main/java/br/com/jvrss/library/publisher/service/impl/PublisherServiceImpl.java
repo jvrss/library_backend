@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -36,8 +37,8 @@ public class PublisherServiceImpl implements PublisherService {
      * @return the publisher if found, or null if not found
      */
     @Override
-    public Publisher getPublisherById(UUID id) {
-        return publisherRepository.findById(id).orElse(null);
+    public Optional<Publisher> getPublisherById(UUID id) {
+        return Optional.ofNullable(publisherRepository.findById(id).orElse(null));
     }
 
     /**

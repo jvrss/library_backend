@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -41,12 +42,8 @@ public class PublisherController {
      */
     @GetMapping("/{id}")
     public ResponseEntity<Publisher> getPublisherById(@PathVariable UUID id) {
-        Publisher publisher = publisherService.getPublisherById(id);
-        if (publisher != null) {
-            return new ResponseEntity<>(publisher, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        Optional<Publisher> publisher = publisherService.getPublisherById(id);
+        return publisher.map(value -> new ResponseEntity<>(value, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     /**
