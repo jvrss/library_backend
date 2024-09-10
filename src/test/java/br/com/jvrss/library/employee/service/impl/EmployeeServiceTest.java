@@ -1,4 +1,4 @@
-package br.com.jvrss.library.employee.service;
+package br.com.jvrss.library.employee.service.impl;
 
 import br.com.jvrss.library.employee.model.Employee;
 import br.com.jvrss.library.employee.repository.EmployeeRepository;

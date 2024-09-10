@@ -1,11 +1,10 @@
-package br.com.jvrss.library.book.service;
+package br.com.jvrss.library.book.service.impl;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import br.com.jvrss.library.book.model.Book;
 import br.com.jvrss.library.book.repository.BookRepository;
-import br.com.jvrss.library.book.service.impl.BookServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

@@ -1,11 +1,10 @@
-package br.com.jvrss.library.author.service;
+package br.com.jvrss.library.author.service.impl;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import br.com.jvrss.library.author.model.Author;
 import br.com.jvrss.library.author.repository.AuthorRepository;
-import br.com.jvrss.library.author.service.impl.AuthorServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
