@@ -4,6 +4,8 @@ package br.com.jvrss.library.book.controller;
 import br.com.jvrss.library.author.model.Author;
 import br.com.jvrss.library.book.model.Book;
 import br.com.jvrss.library.book.service.BookService;
+import br.com.jvrss.library.language.model.Language;
+import br.com.jvrss.library.publisher.model.Publisher;
 import br.com.jvrss.library.util.JwtUtil;
 import br.com.jvrss.library.filter.JwtRequestFilter;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -19,6 +21,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.Optional;
 import java.util.UUID;
@@ -61,12 +65,23 @@ public class BookControllerTest {
         book = new Book();
         book.setId(UUID.randomUUID());
         book.setTitle("Sample Book");
+        book.setIsbn("123-4567890123");
+        book.setPages(300);
+        book.setPublication(LocalDate.EPOCH);
+
+        Publisher publisher = new Publisher();
+        publisher.setName("Sample Publisher");
+        book.setPublisher(publisher);
 
         Author author = new Author();
         author.setId(UUID.randomUUID());
         author.setName("John Doe");
-
         book.setAuthor(author);
+
+        Language language = new Language();
+        language.setId(UUID.randomUUID());
+        language.setName("English");
+        book.setLanguage(language);
     }
 
     @Test

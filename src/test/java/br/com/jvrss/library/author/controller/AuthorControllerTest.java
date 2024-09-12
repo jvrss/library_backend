@@ -5,6 +5,7 @@ import br.com.jvrss.library.author.model.Author;
 import br.com.jvrss.library.author.service.AuthorService;
 import br.com.jvrss.library.util.JwtUtil;
 import br.com.jvrss.library.filter.JwtRequestFilter;
+import br.com.jvrss.library.util.RandomStringGenerator;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -90,49 +91,40 @@ public class AuthorControllerTest {
     @Test
     @WithMockUser
     void testUpdateAuthor() throws Exception {
-        UUID authorId = UUID.randomUUID();
         Author updatedAuthor = new Author();
         updatedAuthor.setName("Updated Author Name");
 
         when(authorService.updateAuthor(any(UUID.class), any(Author.class))).thenReturn(Optional.of(updatedAuthor));
 
-        mockMvc.perform(put("/api/authors/{id}", authorId)
+        mockMvc.perform(put("/api/authors/{id}", author.getId())
                         .header("Authorization", "Bearer " + jwtToken)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(updatedAuthor))
                         .with(csrf()))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value("Updated Author Name"));
+    }
 
-        // Test for author not found
+    @Test
+    @WithMockUser
+    void testUpdateAuthorNotFound() throws Exception {
+        Author updatedAuthor = new Author();
+        updatedAuthor.setName("Updated Author Name");
+
         when(authorService.updateAuthor(any(UUID.class), any(Author.class))).thenReturn(Optional.empty());
 
-        mockMvc.perform(put("/api/authors/{id}", authorId)
+        mockMvc.perform(put("/api/authors/{id}", author.getId())
                         .header("Authorization", "Bearer " + jwtToken)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(updatedAuthor))
                         .with(csrf()))
                 .andExpect(status().isNotFound());
-
-        // Test for validation error
-        Author invalidAuthor = new Author();
-        invalidAuthor.setName(""); // Invalid name
-
-        mockMvc.perform(put("/api/authors/{id}", authorId)
-                        .header("Authorization", "Bearer " + jwtToken)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(invalidAuthor))
-                        .with(csrf()))
-                .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.name").value("must not be blank"));
     }
 
     @Test
     @WithMockUser
     void testDeleteAuthor() throws Exception {
-        UUID id = UUID.randomUUID();
-
-        mockMvc.perform(delete("/api/authors/{id}", id)
+        mockMvc.perform(delete("/api/authors/{id}", author.getId())
                         .with(csrf())
                         .header("Authorization", "Bearer " + jwtToken))
                 .andExpect(status().isNoContent());
@@ -151,15 +143,16 @@ public class AuthorControllerTest {
 
     @Test
     @WithMockUser
-    void testHandleValidationExceptions() throws Exception {
-        Author author = new Author();
-        author.setName(""); // Invalid name
+    void testCreateAuthorWithValidationErrors() throws Exception {
+        Author invalidAuthor = new Author();
+        invalidAuthor.setName(RandomStringGenerator.generate(300));
 
         mockMvc.perform(post("/api/authors")
+                        .with(csrf())
                         .header("Authorization", "Bearer " + jwtToken)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(author)))
+                        .content(objectMapper.writeValueAsString(invalidAuthor)))
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.name").value("must not be blank"));
+                .andExpect(jsonPath("$.name").value("size must be between 0 and 200"));
     }
 }

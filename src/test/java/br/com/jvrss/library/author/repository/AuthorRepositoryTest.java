@@ -1,6 +1,7 @@
 package br.com.jvrss.library.author.repository;
 
 import br.com.jvrss.library.author.model.Author;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -17,13 +18,23 @@ public class AuthorRepositoryTest {
     @Autowired
     private AuthorRepository authorRepository;
 
+    private Author author1;
+    private Author author2;
+
+    @BeforeEach
+    void setUp() {
+        author1 = new Author();
+        author1.setId(UUID.randomUUID());
+        author1.setName("John Doe");
+
+        author2 = new Author();
+        author2.setId(UUID.randomUUID());
+        author2.setName("Jane Doe");
+    }
+
     @Test
     void testSaveAuthor() {
-        UUID expectedId = UUID.randomUUID();
-        Author author = new Author();
-        author.setName("John Doe");
-
-        Author savedAuthor = authorRepository.save(author);
+        Author savedAuthor = authorRepository.save(author1);
 
         assertThat(savedAuthor).isNotNull();
         assertThat(savedAuthor.getName()).isEqualTo("John Doe");
@@ -31,10 +42,7 @@ public class AuthorRepositoryTest {
 
     @Test
     void testFindById() {
-        Author author = new Author();
-        author.setName("John Doe");
-
-        Author savedAuthor = authorRepository.save(author);
+        Author savedAuthor = authorRepository.save(author1);
 
         Optional<Author> foundAuthor = authorRepository.findById(savedAuthor.getId());
 
@@ -44,14 +52,6 @@ public class AuthorRepositoryTest {
 
     @Test
     void testFindAll() {
-        Author author1 = new Author();
-        author1.setId(UUID.randomUUID());
-        author1.setName("John Doe");
-
-        Author author2 = new Author();
-        author2.setId(UUID.randomUUID());
-        author2.setName("Jane Doe");
-
         authorRepository.save(author1);
         authorRepository.save(author2);
 
@@ -63,12 +63,8 @@ public class AuthorRepositoryTest {
 
     @Test
     void testDeleteById() {
-        UUID id = UUID.randomUUID();
-        Author author = new Author();
-        author.setId(id);
-        author.setName("John Doe");
-
-        authorRepository.save(author);
+        UUID id = author1.getId();
+        authorRepository.save(author1);
         authorRepository.deleteById(id);
 
         Optional<Author> deletedAuthor = authorRepository.findById(id);

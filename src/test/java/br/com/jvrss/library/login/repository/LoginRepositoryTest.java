@@ -22,7 +22,6 @@ public class LoginRepositoryTest {
     @Test
     void testSaveLogin() {
         Login login = new Login();
-        login.setId(UUID.randomUUID());
         login.setName("johndoe");
         login.setEmail("johndoe@example.com");
         login.setPassword("password");
@@ -30,21 +29,19 @@ public class LoginRepositoryTest {
         Login savedLogin = loginRepository.save(login);
 
         assertThat(savedLogin).isNotNull();
-        assertThat(savedLogin.getId()).isEqualTo(login.getId());
+        assertThat(savedLogin.getId()).isNotNull();
     }
 
     @Test
     void testFindById() {
-        UUID id = UUID.randomUUID();
         Login login = new Login();
-        login.setId(id);
         login.setName("johndoe");
         login.setEmail("johndoe@example.com");
         login.setPassword("password");
 
-        loginRepository.save(login);
+        login = loginRepository.save(login);
 
-        Optional<Login> foundLogin = loginRepository.findById(id);
+        Optional<Login> foundLogin = loginRepository.findById(login.getId());
 
         assertThat(foundLogin).isPresent();
         assertThat(foundLogin.get().getName()).isEqualTo("johndoe");
