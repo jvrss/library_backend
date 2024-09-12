@@ -59,8 +59,9 @@ public class AuthorController {
     @PutMapping("/{id}")
     public ResponseEntity<Author> updateAuthor(@PathVariable UUID id, @Valid @RequestBody Author author) {
         try {
-            Author updatedAuthor = authorService.updateAuthor(id, author);
-            return ResponseEntity.ok(updatedAuthor);
+            Optional<Author> updatedAuthor = authorService.updateAuthor(id, author);
+
+            return updatedAuthor.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
         }

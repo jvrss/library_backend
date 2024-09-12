@@ -62,10 +62,14 @@ public class AuthorServiceTest {
         when(authorRepository.existsById(authorId)).thenReturn(true);
         when(authorRepository.save(author)).thenReturn(author);
 
-        Author updatedAuthor = authorService.updateAuthor(authorId, author);
+        Optional<Author> updatedAuthor = authorService.updateAuthor(authorId, author);
 
-        assertNotNull(updatedAuthor);
-        assertEquals("John Doe", updatedAuthor.getName());
+        if (updatedAuthor.isEmpty()) {
+            fail("Author not found");
+        }
+
+        assertNotNull(updatedAuthor.get());
+        assertEquals("John Doe", updatedAuthor.get().getName());
     }
 
     @Test

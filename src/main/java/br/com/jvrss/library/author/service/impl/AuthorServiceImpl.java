@@ -45,16 +45,16 @@ public class AuthorServiceImpl implements AuthorService {
     /**
      * Updates an existing author.
      *
-     * @param id the ID of the author to update
+     * @param id     the ID of the author to update
      * @param author the updated author data
      * @return the updated author
      * @throws RuntimeException if the author is not found
      */
     @Override
-    public Author updateAuthor(UUID id, Author author) {
+    public Optional<Author> updateAuthor(UUID id, Author author) {
         if (authorRepository.existsById(id)) {
             author.setId(id);
-            return authorRepository.save(author);
+            return Optional.of(authorRepository.save(author));
         } else {
             throw new RuntimeException("Author not found");
         }

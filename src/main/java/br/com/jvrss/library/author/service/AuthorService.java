@@ -12,7 +12,7 @@ import java.util.UUID;
 public interface AuthorService {
     Author createAuthor(Author author);
     Optional<Author> getAuthorById(UUID id);
-    Author updateAuthor(UUID id, Author author);
+    Optional<Author> updateAuthor(UUID id, Author author);
     void deleteAuthor(UUID id);
     List<Author> getAllAuthors();
 }
