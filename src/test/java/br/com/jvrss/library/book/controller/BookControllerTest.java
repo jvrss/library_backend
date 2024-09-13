@@ -68,14 +68,19 @@ public class BookControllerTest {
         book.setIsbn("123-4567890123");
         book.setPages(300);
         book.setPublication(LocalDate.EPOCH);
+        book.setDescription("Sample Description");
 
         Publisher publisher = new Publisher();
+        publisher.setId(UUID.randomUUID());
         publisher.setName("Sample Publisher");
+        publisher.setAddress("Sample Address");
         book.setPublisher(publisher);
 
         Author author = new Author();
         author.setId(UUID.randomUUID());
         author.setName("John Doe");
+        author.setBio("Sample Bio");
+        author.setBirthday(LocalDate.EPOCH);
         book.setAuthor(author);
 
         Language language = new Language();

@@ -64,7 +64,7 @@ public class SecurityConfigTest {
     @Test
     @WithMockUser
     public void testProtectedEndpoint() throws Exception {
-        mockMvc.perform(get("/protected-endpoint"))
+        mockMvc.perform(get("/api/authors"))
                 .andExpect(status().isForbidden());
     }
 

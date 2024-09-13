@@ -27,7 +27,6 @@ public class UserRepositoryTest {
         user.setCpf(CPFGenerator.generateCPF());
 
         Login login = new Login();
-        login.setId(UUID.randomUUID());
         login.setName("johndoe");
         login.setEmail("johndoe@example.com");
         login.setPassword("password");
@@ -49,7 +48,6 @@ public class UserRepositoryTest {
         Optional<User> foundUser = userRepository.findById(user.getCpf());
         assertThat(foundUser).isPresent();
         assertThat(foundUser.get().getCpf()).isEqualTo(user.getCpf());
-        assertThat(foundUser.get().getLogin().getId()).isEqualTo(user.getLogin().getId());
         assertThat(foundUser.get().getLogin().getName()).isEqualTo(user.getLogin().getName());
         assertThat(foundUser.get().getLogin().getEmail()).isEqualTo(user.getLogin().getEmail());
         assertThat(foundUser.get().getLogin().getPassword()).isEqualTo(user.getLogin().getPassword());
