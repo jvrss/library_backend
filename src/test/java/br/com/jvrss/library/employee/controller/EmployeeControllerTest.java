@@ -65,6 +65,7 @@ public class EmployeeControllerTest {
         login = new Login();
         login.setId(UUID.randomUUID());
         login.setName("johndoe");
+        login.setEmail("john.doe@example.com");
 
         employee = new Employee();
         employee.setCpf("12345678900");
@@ -74,13 +75,17 @@ public class EmployeeControllerTest {
     @Test
     @WithMockUser
     void testCreateEmployee() throws Exception {
+        when(loginService.getLoginById(any(UUID.class))).thenReturn(Optional.of(login));
         when(employeeService.createEmployee(any(Employee.class))).thenReturn(employee);
+
+        String employeeJson = objectMapper.writeValueAsString(employee);
+        System.out.println("Request Payload: " + employeeJson);
 
         mockMvc.perform(post("/api/employees")
                         .header("Authorization", "Bearer " + jwtToken)
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(employee)))
+                        .content(employeeJson))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.login.name").value("johndoe"));
     }

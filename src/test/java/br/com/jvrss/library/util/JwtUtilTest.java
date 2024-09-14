@@ -48,7 +48,7 @@ public class JwtUtilTest {
     public void testIsTokenExpired() {
         String username = "testuser";
         String token = jwtUtil.generateToken(username);
-        assertFalse(jwtUtil.validateToken(token, username));
+        assertTrue(jwtUtil.validateToken(token, username));
 
         // Simulate token expiration by setting the expiration date to the past
         ReflectionTestUtils.setField(jwtUtil, "secret", secretKey);
@@ -58,6 +58,6 @@ public class JwtUtilTest {
                 .setExpiration(new Date(System.currentTimeMillis() - 1000 * 60 * 60)) // 1 hour ago
                 .signWith(Keys.hmacShaKeyFor(secretKey.getBytes()), SignatureAlgorithm.HS256)
                 .compact();
-        assertFalse(jwtUtil.validateToken(expiredToken, username));
+        assertThrows(io.jsonwebtoken.ExpiredJwtException.class, () -> jwtUtil.validateToken(expiredToken, username));
     }
 }

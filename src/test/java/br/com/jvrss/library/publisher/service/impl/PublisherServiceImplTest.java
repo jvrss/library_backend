@@ -60,14 +60,13 @@ public class PublisherServiceImplTest {
 
     @Test
     void testUpdatePublisher() {
-        when(publisherRepository.findById(publisher.getId())).thenReturn(Optional.of(publisher));
+        when(publisherRepository.existsById(any(UUID.class))).thenReturn(true);
         when(publisherRepository.save(any(Publisher.class))).thenReturn(publisher);
 
         Publisher updatedPublisher = publisherService.updatePublisher(publisher.getId(), publisher);
 
         assertThat(updatedPublisher).isNotNull();
         assertThat(updatedPublisher.getName()).isEqualTo("Test Publisher");
-        verify(publisherRepository, times(1)).findById(publisher.getId());
         verify(publisherRepository, times(1)).save(publisher);
     }
 

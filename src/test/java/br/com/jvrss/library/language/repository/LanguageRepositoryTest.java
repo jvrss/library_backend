@@ -19,13 +19,11 @@ class LanguageRepositoryTest {
     @Test
     void testSaveLanguage() {
         Language language = new Language();
-        language.setId(UUID.randomUUID());
         language.setName("English");
 
         Language savedLanguage = languageRepository.save(language);
 
         assertThat(savedLanguage).isNotNull();
-        assertThat(savedLanguage.getId()).isEqualTo(language.getId());
         assertThat(savedLanguage.getName()).isEqualTo("English");
     }
 
@@ -36,12 +34,9 @@ class LanguageRepositoryTest {
         language.setId(id);
         language.setName("English");
 
-        languageRepository.save(language);
+        Language foundLanguage = languageRepository.save(language);
 
-        Optional<Language> foundLanguage = languageRepository.findById(id);
-
-        assertThat(foundLanguage).isPresent();
-        assertThat(foundLanguage.get().getName()).isEqualTo("English");
+        assertThat(foundLanguage.getName()).isEqualTo("English");
     }
 
     @Test

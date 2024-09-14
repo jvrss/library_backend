@@ -9,6 +9,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -22,6 +23,9 @@ public class LoginServiceImplTest {
 
     @Mock
     private LoginRepository loginRepository;
+
+    @Mock
+    private PasswordEncoder passwordEncoder;
 
     @InjectMocks
     private LoginServiceImpl loginService;
@@ -39,6 +43,7 @@ public class LoginServiceImplTest {
 
     @Test
     void testCreateLogin() {
+        when(passwordEncoder.encode(login.getPassword())).thenReturn("$2a$password");
         when(loginRepository.save(any(Login.class))).thenReturn(login);
 
         Login createdLogin = loginService.createLogin(login);
@@ -61,14 +66,14 @@ public class LoginServiceImplTest {
 
     @Test
     void testUpdateLogin() {
-        when(loginRepository.findById(login.getId())).thenReturn(Optional.of(login));
+        when(loginRepository.existsById(login.getId())).thenReturn(true);
+        when(passwordEncoder.encode(login.getPassword())).thenReturn("$2a$password");
         when(loginRepository.save(any(Login.class))).thenReturn(login);
 
         Login updatedLogin = loginService.updateLogin(login.getId(), login);
 
         assertThat(updatedLogin).isNotNull();
         assertThat(updatedLogin.getName()).isEqualTo("johndoe");
-        verify(loginRepository, times(1)).findById(login.getId());
         verify(loginRepository, times(1)).save(login);
     }
 
