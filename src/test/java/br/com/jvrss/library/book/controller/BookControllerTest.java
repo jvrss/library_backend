@@ -3,6 +3,7 @@ package br.com.jvrss.library.book.controller;
 
 import br.com.jvrss.library.author.model.Author;
 import br.com.jvrss.library.book.model.Book;
+import br.com.jvrss.library.book.repository.BookRepository;
 import br.com.jvrss.library.book.service.BookService;
 import br.com.jvrss.library.language.model.Language;
 import br.com.jvrss.library.publisher.model.Publisher;

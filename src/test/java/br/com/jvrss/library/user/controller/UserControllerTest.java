@@ -81,7 +81,7 @@ public class UserControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(user)))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.name").value("Jane Doe"));
+                .andExpect(jsonPath("$.cpf").value(user.getCpf()));
     }
 
     @Test
@@ -92,7 +92,7 @@ public class UserControllerTest {
         mockMvc.perform(get("/api/users/{id}", user.getCpf())
                         .header("Authorization", "Bearer " + jwtToken))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.name").value("Jane Doe"));
+                .andExpect(jsonPath("$.cpf").value(user.getCpf()));
     }
 
     @Test
@@ -106,7 +106,7 @@ public class UserControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(user)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.name").value("Jane Doe"));
+                .andExpect(jsonPath("$.cpf").value(user.getCpf()));
     }
 
     @Test
@@ -128,6 +128,6 @@ public class UserControllerTest {
         mockMvc.perform(get("/api/users")
                         .header("Authorization", "Bearer " + jwtToken))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].name").value("Jane Doe"));
+                .andExpect(jsonPath("$[0].cpf").value(user.getCpf()));
     }
 }

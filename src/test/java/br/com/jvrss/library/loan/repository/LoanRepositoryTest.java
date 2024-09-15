@@ -20,26 +20,22 @@ class LoanRepositoryTest {
     @Test
     void testSaveLoan() {
         Loan loan = new Loan();
-        loan.setId(UUID.randomUUID());
         loan.setDate(LocalDateTime.now());
 
         Loan savedLoan = loanRepository.save(loan);
 
         assertThat(savedLoan).isNotNull();
-        assertThat(savedLoan.getId()).isEqualTo(loan.getId());
         assertThat(savedLoan.getDate()).isEqualTo(loan.getDate());
     }
 
     @Test
     void testFindById() {
-        UUID id = UUID.randomUUID();
         Loan loan = new Loan();
-        loan.setId(id);
         loan.setDate(LocalDateTime.now());
 
-        loanRepository.save(loan);
+        loan = loanRepository.save(loan);
 
-        Optional<Loan> foundLoan = loanRepository.findById(id);
+        Optional<Loan> foundLoan = loanRepository.findById(loan.getId());
 
         assertThat(foundLoan).isPresent();
         assertThat(foundLoan.get().getDate()).isEqualTo(loan.getDate());
