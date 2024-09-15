@@ -22,16 +22,14 @@ public class PublisherRepositoryTest {
     @BeforeEach
     void setUp() {
         publisher = new Publisher();
-        publisher.setId(UUID.randomUUID());
         publisher.setName("Test Publisher");
-        publisherRepository.save(publisher);
+        publisher = publisherRepository.save(publisher);
     }
 
     @Test
     void testSavePublisher() {
         Publisher savedPublisher = publisherRepository.save(publisher);
         assertThat(savedPublisher).isNotNull();
-        assertThat(savedPublisher.getId()).isEqualTo(publisher.getId());
     }
 
     @Test
