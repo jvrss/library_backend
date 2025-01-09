@@ -8,3 +8,15 @@
   "email": "pedro.bmo@hotmail.com",
   "password": "715WYhbDpw}_"
 }
+
+INSERT INTO login VALUES (
+  UNHEX(REPLACE(UUID(), '-', '')),
+  'jv_rss@hotmail.com',
+  'João Silva',
+  '$2a$10$3fXMd1SfNjQHDXNWweVmIecUf5ycCiUSJNL5UelBVGU8hPEjqhZGi')
+
+  INSERT INTO login VALUES (
+    UNHEX(REPLACE(UUID(), '-', '')),
+    'pedro.bmo@hotmail.com',
+    'Pedro Silva',
+    '$2a$10$cJStBE5WLl22zUK9mX5EEuL.Vl0.Zkl17dVIF7ME7Yr5UVoCTqmIS')
